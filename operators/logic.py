@@ -1,6 +1,6 @@
 # coding=utf-8
 import numpy as np
-from .function_wrapper import *
+from .talib_func import *
 from .decorator import *
 
 #====================================逻辑====================================

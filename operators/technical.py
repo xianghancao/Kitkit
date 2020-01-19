@@ -3,7 +3,7 @@ import numpy as np
 import scipy.stats as st
 import talib
 import pandas as pd
-from .function_wrapper import *
+from .talib_func import *
 from .decorator import *
 from statistics import *
 
@@ -52,7 +52,7 @@ def llv(data, n):
     [Definition] 数据在n天内的最低价值
     [Category] 技术指标
     """
-    return function_wrapper("MIN", data, timeperiod=n)
+    return talib_func("MIN", data, timeperiod=n)
 
 @decorator
 def hhv(data, n):
@@ -60,7 +60,7 @@ def hhv(data, n):
     [Definition] 数据在n天内的最高价值
     [Category] 技术指标
     """
-    return function_wrapper("MAX", data, timeperiod=n)
+    return talib_func("MAX", data, timeperiod=n)
 
 
 @decorator
@@ -69,7 +69,7 @@ def atr(high, low, close, period):
     [Definition] 数据在n天内平均波动范围
     [Category] 技术指标
     """
-    return function_wrapper('ATR', high, low, close, timeperiod=period)
+    return talib_func('ATR', high, low, close, timeperiod=period)
 
 
 @decorator
@@ -78,7 +78,7 @@ def atr_rate(high, low, close, period):
     [Definition] 数据在n天内平均波动率
     [Category] 技术指标
     """
-    return function_wrapper('ATR', high, low, close, timeperiod=period) / close
+    return talib_func('ATR', high, low, close, timeperiod=period) / close
 
 
 @decorator
@@ -87,7 +87,7 @@ def sub(high, low):
     [Definition] 当日的最大价格差
     [Category] 技术指标
     """
-    return function_wrapper('SUB', high, low)
+    return talib_func('SUB', high, low)
 
 
 @decorator
@@ -96,7 +96,7 @@ def ht_trendline(data):
     [Definition] 希尔伯特变换-趋势vs周期模式
     [Category] 技术指标
     """
-    return function_wrapper('HT_TRENDLINE', data)
+    return talib_func('HT_TRENDLINE', data)
 
 
 @decorator
@@ -106,7 +106,7 @@ def kama(data, period):
     [Definition] 以period为周期的考夫曼自适应移动平均线
     [Category] 技术指标
     """
-    return function_wrapper('KAMA', data, timeperiod=period)
+    return talib_func('KAMA', data, timeperiod=period)
 
 
 @decorator
@@ -115,7 +115,7 @@ def midpoint(data, period):
     [Definition] (highest value-lowest value)/2k
     [Category] 技术指标
     """
-    return function_wrapper('MIDPOINT', data, timeperiod=period)
+    return talib_func('MIDPOINT', data, timeperiod=period)
 
 
 @decorator
@@ -124,7 +124,7 @@ def ema(data, period):
     [Definition] 以period为周期的指数加权移动平均线
     [Category] 技术指标
     """
-    return function_wrapper('EMA', data, timeperiod=period)
+    return talib_func('EMA', data, timeperiod=period)
 
 
 @decorator
@@ -133,7 +133,7 @@ def wma(data, period):
     [Definition] 以period为周期的加权移动平均线
     [Category] 技术指标
     """
-    return function_wrapper('WMA', data, timeperiod=period)
+    return talib_func('WMA', data, timeperiod=period)
 
 
 @decorator
@@ -142,7 +142,7 @@ def tema(data, period):
     [Definition] 以period为周期的三指数移动平均线
     [Category] 技术指标
     """
-    return function_wrapper('TEMA', data, timeperiod=period)
+    return talib_func('TEMA', data, timeperiod=period)
 
 
 @decorator
@@ -208,7 +208,7 @@ def r(high, low, close, period):
     [Category] 技术指标
     Larry William's %R
     """
-    return function_wrapper('WILLR', high, low, close, timeperiod=period)
+    return talib_func('WILLR', high, low, close, timeperiod=period)
 
 
 @decorator
@@ -237,7 +237,7 @@ def cci(high, low, close, period):
     [Definition]  Commodity channel index，period时间周期内的价格顺势指标
     [Category] 技术指标
     """
-    return function_wrapper('CCI', high, low, close, timeperiod=period)
+    return talib_func('CCI', high, low, close, timeperiod=period)
 
 
 @decorator
@@ -277,7 +277,7 @@ def uo(high, low, close, period1, period2, period3):
     [Category] 技术指标
     Ultimate oscillator
     """
-    return function_wrapper('ULTOSC', high, low, close, timeperiod1=period1,
+    return talib_func('ULTOSC', high, low, close, timeperiod1=period1,
                             timeperiod2=period2, timeperiod3=period3)
 
 

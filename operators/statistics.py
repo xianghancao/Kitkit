@@ -3,7 +3,7 @@ import numpy as np
 import scipy.stats as st
 import talib
 import pandas as pd
-from .function_wrapper import *
+from .talib_func import *
 from .decorator import *
 
 
@@ -14,7 +14,7 @@ def sum(x, period):
     [Category] 统计
     """
     if period > 1:
-        return function_wrapper("SUM", x, timeperiod=period)
+        return talib_func("SUM", x, timeperiod=period)
     elif period == 1:
         return x
 
@@ -26,7 +26,7 @@ def ts_sum(x, period):
     [Category] 统计
     """
     if period > 1:
-        return function_wrapper("SUM", x, timeperiod=period)
+        return talib_func("SUM", x, timeperiod=period)
     elif period == 1:
         return x
 
@@ -41,7 +41,7 @@ def ts_product(x, period):
     """
     tmp = x ** 2
     if period > 1:
-        return function_wrapper('SUM', tmp, timeperiod=period)
+        return talib_func('SUM', tmp, timeperiod=period)
     elif period == 1:
         return tmp
 
@@ -53,7 +53,7 @@ def ts_min(x, period):
     [Category] 统计
     """
     # 取前n天数据的最小值
-    return function_wrapper("MIN", x, timeperiod=period)
+    return talib_func("MIN", x, timeperiod=period)
 
 
 @decorator
@@ -62,7 +62,7 @@ def ts_max(x, period):
     [Definition] 对x中的每个时间序列在period范围内滚动求最大值
     [Category] 统计
     """
-    return function_wrapper("MAX", x, timeperiod=period)
+    return talib_func("MAX", x, timeperiod=period)
 
 
 # @decorator
@@ -71,7 +71,7 @@ def ts_max(x, period):
 #     [Definition] 对x中的每个时间序列在period范围内滚动求最大值的位置，过去period天的最大值的位置，范围[1,period]
 #     [Category] 统计
 #     """
-#     res = - function_wrapper("MAXINDEX", x, timeperiod=period) + (np.arange(x.shape[0]) * np.ones_like(x).T).T 
+#     res = - talib_func("MAXINDEX", x, timeperiod=period) + (np.arange(x.shape[0]) * np.ones_like(x).T).T 
 #     #res[0:period - 1] = np.nan
 #     #res = pd.rolling_apply(pd.DataFrame(x), window=period, func=np.argmax, min_periods=period, kwargs={'axis':0}).values
 #     return res
@@ -83,7 +83,7 @@ def ts_argmax(x, period):
     [Definition] 对x中的每个时间序列在period范围内滚动求最大值的位置，过去period天的最大值的位置，范围[1,period]
     [Category] 统计
     """
-    res=pd.DataFrame(x).notnull().cumsum().values-function_wrapper("MAXINDEX", x, timeperiod=period)-1
+    res=pd.DataFrame(x).notnull().cumsum().values-talib_func("MAXINDEX", x, timeperiod=period)-1
     res[0:period - 1] = np.nan
     res[np.isnan(x)] = np.nan
     return res
@@ -96,7 +96,7 @@ def ts_argmax(x, period):
 #     [Category] 统计
 
 #     """
-#     res = - function_wrapper("MININDEX", x, timeperiod=period) + (np.arange(x.shape[0]) * np.ones_like(x).T).T 
+#     res = - talib_func("MININDEX", x, timeperiod=period) + (np.arange(x.shape[0]) * np.ones_like(x).T).T 
 #     #res[0:period - 1] = np.nan
 #     #res = pd.rolling_apply(pd.DataFrame(x), window=period, func=np.argmin, min_periods=period, kwargs={'axis':0}).values
 #     return res
@@ -108,7 +108,7 @@ def ts_argmin(x, period):
     [Definition] 对x中的每个时间序列在period范围内滚动求最大值的位置，过去period天的最大值的位置，范围[1,period]
     [Category] 统计
     """
-    res=pd.DataFrame(x).notnull().cumsum().values-function_wrapper("MININDEX", x, timeperiod=period)-1
+    res=pd.DataFrame(x).notnull().cumsum().values-talib_func("MININDEX", x, timeperiod=period)-1
     res[0:period - 1] = np.nan
     res[np.isnan(x)] = np.nan
     return res
@@ -152,7 +152,7 @@ def ma(x, period):
     [Definition] 对x中的每个时间序列在period范围内滚动求均值
     [Category] 统计
     """
-    res = function_wrapper("MA", x, timeperiod=period)
+    res = talib_func("MA", x, timeperiod=period)
     return res
 
 
@@ -162,7 +162,7 @@ def mean(x, period):
     [Definition]对x中的每个时间序列在period范围内滚动求均值, 同ma
     [Category] 统计
     """
-    res = function_wrapper("MA", x, timeperiod=period)
+    res = talib_func("MA", x, timeperiod=period)
     return res
 
 
@@ -264,7 +264,7 @@ def beta(high, low, period):
     [Definition] CAPM模型中的beta系数
     [Category] 统计
     """
-    return function_wrapper('BETA', high, low, timeperiod=period)
+    return talib_func('BETA', high, low, timeperiod=period)
 
 
 @decorator
@@ -273,7 +273,7 @@ def linearreg(data, period):
     [Definition] 线性回归
     [Category] 统计
     """
-    return function_wrapper('LINEARREG', data, timeperiod=period)
+    return talib_func('LINEARREG', data, timeperiod=period)
 
 
 @decorator
@@ -283,7 +283,7 @@ def linearreg_angle(data, period):
     [Category] 统计
     """
 
-    return function_wrapper('LINEARREG_ANGLE', data, timeperiod=period)
+    return talib_func('LINEARREG_ANGLE', data, timeperiod=period)
 
 
 @decorator
@@ -292,7 +292,7 @@ def linearreg_intercept(data, period):
     [Definition] 回归的截距
     [Category] 统计
     """
-    return function_wrapper('LINEARREG_INTERCEPT', data, timeperiod=period)
+    return talib_func('LINEARREG_INTERCEPT', data, timeperiod=period)
 
 
 @decorator
@@ -301,7 +301,7 @@ def linearreg_slope(data, period):
     [Definition] 线性回归的斜率
     [Category] 统计
     """
-    return function_wrapper('LINEARREG_SLOPE', data, timeperiod=period)
+    return talib_func('LINEARREG_SLOPE', data, timeperiod=period)
 
 
 @decorator
@@ -310,7 +310,7 @@ def tsf(data, period):
     [Definition] 时间序列预测
     [Category] 统计
     """
-    return function_wrapper('TSF', data, timeperiod=period)
+    return talib_func('TSF', data, timeperiod=period)
 
 
 @decorator
@@ -319,7 +319,7 @@ def stddev(x, period):  # 标准差
     [Definition] 序列x在前period日的标准差
     [Category] 统计
     """
-    return function_wrapper('STDDEV', x, timeperiod=period)
+    return talib_func('STDDEV', x, timeperiod=period)
 
 
 @decorator
@@ -328,7 +328,7 @@ def var(data, period):
     [Definition] 序列x在前period日的方差
     [Category] 统计
     """
-    return function_wrapper('VAR', data, timeperiod=period)
+    return talib_func('VAR', data, timeperiod=period)
 
 
 @decorator
@@ -348,7 +348,7 @@ def correlation(x, y, period):
     [Definition] 序列x和y在前period日的皮尔逊相关系数
     [Category] 统计
     """
-    return function_wrapper('CORREL', x, y, timeperiod=period)
+    return talib_func('CORREL', x, y, timeperiod=period)
 
 
 @decorator
@@ -357,9 +357,9 @@ def covariance(x, y, period):
     [Definition] 序列x和y在前period日的协方差,使用皮尔森相关系数的公式算协方差公式
     [Category] 统计
     """
-    corr_matrix = function_wrapper('CORREL', x, y, timeperiod=period)
-    var_x = function_wrapper('VAR', x, timeperiod=period)
-    var_y = function_wrapper('VAR', y, timeperiod=period)
+    corr_matrix = talib_func('CORREL', x, y, timeperiod=period)
+    var_x = talib_func('VAR', x, timeperiod=period)
+    var_y = talib_func('VAR', y, timeperiod=period)
     return corr_matrix * var_x * var_y
 
 
@@ -383,7 +383,7 @@ def ts_count(cond, period):
     [Category] 统计
     return the number of cond=True in x during last period
     """
-    return function_wrapper("SUM", 1.*(cond==True), timeperiod=period)
+    return talib_func("SUM", 1.*(cond==True), timeperiod=period)
 
 
 
