@@ -353,7 +353,8 @@ class AlphaPerform():
         self.indicators["Net Alpha Max DrawdownPeriod"] = self.net_alpha_max_drawdown_period
         self.indicators["Alpha Rsquared"] = round(self.alpha_Rsquared, 3)
 
-        self.stat_df = pd.DataFrame(self.indicators, index=["%s - %s" %(self.resample_dates[0], self.resample_dates[-1])])
+        print(('start:%s end:%s') %(self.resample_dates[0], self.resample_dates[-1]))
+        self.stat_df = pd.DataFrame(self.indicators, index=[" "])
         print(self.stat_df)
 
 
@@ -375,7 +376,7 @@ class AlphaPerform():
         space = [i for i in np.arange(len(dates)) if i%step==0]
         dates_str = [i.split(' ')[0] for i in dates[space]]
         if len(np.unique(dates_str)) <= 3:
-            step = len(dates)/5
+            step = int(len(dates)/5)
             space = [i for i in np.arange(len(dates)) if i%step==0]
             dates_str = [i for i in dates[space]]
         plt.xticks(space, dates_str)
