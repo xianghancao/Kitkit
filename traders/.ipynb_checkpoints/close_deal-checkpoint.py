@@ -9,15 +9,33 @@ class CloseDeal():
                     quintiles=3, cost=0.):
         self.OpenPrice = data.OpenPrice
         self.ClosePrice = data.ClosePrice
+        self.TradeStatus = data.TradeStatus
+        self.Volume = data.Volume
         self.dates = data.dates
         self.idx = np.arange(maxlookback, len(data.dates))
         self.alpha = alpha
 
 
     def build(self):
+        self.trade_check()
+        self.volume_check()
         self.deal()
         self.scale_one()
 
+
+    def trade_check(self):
+        """
+        交易状态为False，禁止买入卖空
+        """
+        self.alpha[~self.TradeStatus] = np.nan
+    
+    def volume_check(self):
+        """
+        无成交量，禁止买入卖空
+        """
+        self.alpha[self.Volume == 0.] = np.nan
+        self.alpha[np.isnan(self.Volume)] = np.nan
+     
 
     def deal(self):
         """

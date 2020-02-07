@@ -359,7 +359,7 @@ class AlphaPerform():
 
 
     def plot(self):
-        figure = plt.figure(figsize=(22,13))
+        figure = plt.figure(figsize=(18,10))
         quintiles_num = self.cfg["Quintiles"]
         for i in range(1, quintiles_num+1):
             q_pnl = getattr(self, 'quintiles_' + str(i) + '_pnl')
