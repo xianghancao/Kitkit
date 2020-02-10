@@ -16,8 +16,11 @@ elements:
         probability: 'e'
     TurnOver:
         probability: 'e'
-
-
+    Amount:
+        probability: 'e'
+    VWAP:
+        probability: 'e'
+        
 
 operators:
     # simple -----------------------------

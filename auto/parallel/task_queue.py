@@ -84,7 +84,7 @@ class TaskQueue():
         # 提取数据，优先级降序排列
         #return col.find({"IS_backtest": "Undo"}).sort("priority", pymongo.DESCENDING)[0:data_num]
         print 'fetch_data ...'
-        return col.find({"IS_backtest": "Undo"})[0:data_num]
+        return col.find({"backtest": "Undo"})[0:data_num]
 
 
     def timing_run(self, queue_threshold):
@@ -128,8 +128,11 @@ class TaskQueue():
 
 
 if __name__ == '__main__':
-    Q = TaskQueue(queue_size=10000, db_host='127.0.0.1', db_port=27017, db_name='Machine', 
+    Q = TaskQueue(queue_size=10000, db_host='127.0.0.1', db_port=27017, db_name='AutoResearch', 
                 db_collection=['layer1', 'layer2', 'layer3', 'layer4', 'layer5', 'layer6', 'layer7'])
     Q.timing_run(queue_threshold=0)
     Q.manager.shutdown()
     print('Queue exit.')
+
+
+    

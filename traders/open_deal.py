@@ -3,8 +3,7 @@ import numpy as np
 import pandas as pd
 
 class OpenDeal():
-    def __init__(self, data, alpha, maxlookback, 
-                    quintiles=3, cost=0.):
+    def __init__(self, data, alpha, maxlookback):
         self.OpenPrice = data.OpenPrice
         self.ClosePrice = data.ClosePrice
         self.TradeStatus = data.TradeStatus

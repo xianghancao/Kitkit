@@ -4,7 +4,7 @@ import pandas as pd
 import os
 
 default_names = ["ticker_names", "dates", 'OpenPrice', 'ClosePrice',
-				 'HighestPrice', 'LowestPrice', 'Volume','Amount','VWAP', 'TradeStatus']
+				 'HighestPrice', 'LowestPrice', 'Volume','Amount','VWAP', 'TradeStatus', 'Turnover', 'Return']
 
 class PriceVolume():
 	def __init__(self, path, data_names=default_names):

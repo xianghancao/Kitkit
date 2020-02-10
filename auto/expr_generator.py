@@ -140,7 +140,8 @@ class ExprGenerator():
         expr = {
             "expr": expr_str,
             "layer": layer_num,
-            "create_date": str(datetime.now())[:19]
+            "create_date": str(datetime.now())[:19],
+            "backtest": "Undo"
         }
         return expr
 
