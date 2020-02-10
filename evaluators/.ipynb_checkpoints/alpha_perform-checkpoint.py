@@ -1,6 +1,8 @@
 import numpy as np
 import pandas as pd 
 import matplotlib.pyplot as plt
+import warnings
+warnings.filterwarnings('ignore')
 
 def drawdown(cpnl):
     _cpnl = cpnl * np.ones((cpnl.shape[0], cpnl.shape[0]))
@@ -41,12 +43,12 @@ def equal_wgts(x):
 
 
 class AlphaPerform():
-    def __init__(self, process, cost, cycle='DAY', quintiles_num=5):
-        self.scaled_resample_wgts = process.scaled_resample_wgts
+    def __init__(self, dealObj, cost, cycle, quintiles_num, figure=True, stat_info=True):
+        self.scaled_resample_wgts = dealObj.scaled_resample_wgts
         self.quintiles_num = quintiles_num
-        self.cfg = {'Cycle': cycle, 'Quintiles': quintiles_num, 'Cost': cost}
-        self.resample_return = process.resample_return
-        self.resample_dates = process.resample_dates
+        self.cfg = {'Cycle': cycle, 'Quintiles': quintiles_num, 'Cost': cost, 'figure': figure, 'stat_info': stat_info}
+        self.resample_return = dealObj.resample_return
+        self.resample_dates = dealObj.resample_dates
 
     def build(self):
         self.stat_quintiles()
@@ -63,7 +65,8 @@ class AlphaPerform():
         self.stat_alpha_Rsquared()
         self.stat_alpha_time_series_cpnl()
         self.stat_info()
-        self.plot()
+        if self.cfg['figure']: self.plot()
+        
     #----------------------------------------------------------------------
     def sort_quintiles(self, wgts, bottom, up):
         # 排序选择
@@ -272,11 +275,11 @@ class AlphaPerform():
     #----------------------------------------------------------------------
     def stat_alpha_sharpe(self):
         if self.cfg['Cycle'] == '15MIN' :
-            self.alpha_sharpe =  np.sqrt(252 * 24) * np.nanmean(self.alpha_pnl)/np.nanstd(self.alpha_pnl)  
+            self.alpha_sharpe =  np.sqrt(252 * 16) * np.nanmean(self.alpha_pnl)/np.nanstd(self.alpha_pnl)  
         elif self.cfg['Cycle'] == '60MIN':
-            self.alpha_sharpe =  np.sqrt(252 * 6) * np.nanmean(self.alpha_pnl)/np.nanstd(self.alpha_pnl) 
+            self.alpha_sharpe =  np.sqrt(252 * 4) * np.nanmean(self.alpha_pnl)/np.nanstd(self.alpha_pnl) 
         elif self.cfg['Cycle'] == '2HOUR':
-            self.alpha_sharpe =  np.sqrt(252 * 3) * np.nanmean(self.alpha_pnl)/np.nanstd(self.alpha_pnl) 
+            self.alpha_sharpe =  np.sqrt(252 * 2) * np.nanmean(self.alpha_pnl)/np.nanstd(self.alpha_pnl) 
         elif self.cfg['Cycle'] == 'DAY' or self.cfg['Cycle'] == '1DAY':
             self.alpha_sharpe =  np.sqrt(252) * np.nanmean(self.alpha_pnl)/np.nanstd(self.alpha_pnl)  
         else:
@@ -286,11 +289,11 @@ class AlphaPerform():
     #----------------------------------------------------------------------
     def stat_net_alpha_sharpe(self):
         if self.cfg['Cycle'] == '15MIN' :
-            self.net_alpha_sharpe =  np.sqrt(252 * 24) * np.nanmean(self.net_alpha_pnl)/np.nanstd(self.net_alpha_pnl)  
+            self.net_alpha_sharpe =  np.sqrt(252 * 16) * np.nanmean(self.net_alpha_pnl)/np.nanstd(self.net_alpha_pnl)  
         elif self.cfg['Cycle'] == '60MIN':
-            self.net_alpha_sharpe =  np.sqrt(252 * 6) * np.nanmean(self.net_alpha_pnl)/np.nanstd(self.net_alpha_pnl) 
+            self.net_alpha_sharpe =  np.sqrt(252 * 4) * np.nanmean(self.net_alpha_pnl)/np.nanstd(self.net_alpha_pnl) 
         elif self.cfg['Cycle'] == '2HOUR':
-            self.net_alpha_sharpe =  np.sqrt(252 * 3) * np.nanmean(self.net_alpha_pnl)/np.nanstd(self.net_alpha_pnl) 
+            self.net_alpha_sharpe =  np.sqrt(252 * 2) * np.nanmean(self.net_alpha_pnl)/np.nanstd(self.net_alpha_pnl) 
         elif self.cfg['Cycle'] == 'DAY' or self.cfg['Cycle'] == '1DAY':
             self.net_alpha_sharpe =  np.sqrt(252) * np.nanmean(self.net_alpha_pnl)/np.nanstd(self.net_alpha_pnl)  
         else:
@@ -301,7 +304,7 @@ class AlphaPerform():
     #----------------------------------------------------------------------
     def stat_alpha_drawdown(self):
         self.alpha_drawdown = drawdown(self.alpha_cpnl)
-        self.alpha_max_drawdown = round(np.abs(np.min(self.alpha_drawdown)), 4)
+        self.alpha_max_drawdown = round(np.abs(np.min(self.alpha_drawdown)), 3)
 
     
     #----------------------------------------------------------------------
@@ -313,7 +316,7 @@ class AlphaPerform():
     #----------------------------------------------------------------------
     def stat_net_alpha_drawdown(self):
         self.net_alpha_drawdown = drawdown(self.net_alpha_cpnl)
-        self.net_alpha_max_drawdown = round(np.abs(np.min(self.net_alpha_drawdown)), 4)
+        self.net_alpha_max_drawdown = round(np.abs(np.min(self.net_alpha_drawdown)), 3)
 
     
     #----------------------------------------------------------------------
@@ -353,9 +356,9 @@ class AlphaPerform():
         self.indicators["Net Alpha Max DrawdownPeriod"] = self.net_alpha_max_drawdown_period
         self.indicators["Alpha Rsquared"] = round(self.alpha_Rsquared, 3)
 
-        print(('start:%s end:%s') %(self.resample_dates[0], self.resample_dates[-1]))
+        print('[AlphaPerform] start:%s end:%s' %(self.resample_dates[0], self.resample_dates[-1]))
         self.stat_df = pd.DataFrame(self.indicators, index=[" "])
-        print(self.stat_df)
+        if self.cfg['stat_info']: print(self.stat_df)
 
 
     def plot(self):

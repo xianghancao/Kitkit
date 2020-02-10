@@ -34,12 +34,13 @@ class ExprDB():
 
     def write_mongodb(self, expr, pprint=True):
         if pprint: 
-            print('mongodb write [layer%s] %s' %(expr['layer'], expr['expr']))
+            print('[ExprDB] mongodb insert layer:%s expr:%s' %(expr['layer'], expr['expr']))
         self.mongodb['layer%s' %expr['layer']].insert_one(expr)
 
 
 
     def update_mongodb(self, expr):
         for iterm in expr.keys():
+            print('[ExprDB] mongodb insert layer:%s expr:%s' %(expr['layer'], expr['expr']))
             self.mongodb['layer%s' %expr['layer']].update_one({'_id': expr['_id']}, {"$set": {iterm: expr[iterm]}})
 

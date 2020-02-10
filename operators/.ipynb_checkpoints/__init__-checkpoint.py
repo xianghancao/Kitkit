@@ -6,3 +6,4 @@ from .number_theory import *
 from .statistics import *
 from .technical import *
 from .trigonometric import *
+from .signal_processor import *

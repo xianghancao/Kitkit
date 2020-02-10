@@ -6,12 +6,30 @@ import pandas as pd
 from .talib_func import *
 from .decorator import *
 
-def Rsquared(y):
-    # return R^2 where x and y are array-like
-    from scipy.stats import linregress
-    x = np.arange(len(y))
-    slope, intercept, r_value, p_value, std_err = linregress(x, y)
-    return r_value**2, x*slope + intercept
+def drawdown(x):
+    def func(cpnl):
+        _cpnl = cpnl * np.ones((cpnl.shape[0], cpnl.shape[0]))
+        _cpnl = np.tril(_cpnl)
+        max_cpnl = np.nanmax(_cpnl, axis=1)
+        return cpnl - max_cpnl
+    res = np.zeros(x.shape) * np.nan
+    for i in range(x.shape[1]):
+        res[:,i] = func(x[:, i])
+    return res
+
+
+
+def drawdown_period(x):
+    def func(cpnl):
+        _cpnl = cpnl * np.ones((cpnl.shape[0], cpnl.shape[0]))
+        _cpnl = np.tril(_cpnl)
+        _cpnl = np.hstack((np.zeros((cpnl.shape[0],1)), _cpnl))
+        max_cpnl = np.argmax(_cpnl, axis=1)
+        return np.arange(len(cpnl)) - max_cpnl + 1
+    res = np.zeros(x.shape)*np.nan
+    for i in range(x.shape[1]):
+        res[:i] = func(x[:,i])
+    return res
 
 
 def scale_one(x):

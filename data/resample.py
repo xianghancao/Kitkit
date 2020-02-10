@@ -27,23 +27,23 @@ class Resample():
         IS_Data = Object()
         OOS_Data = Object()
 
-        if OOS_start is None and OOS_end is None and self.IS_OOS_ratio is None:
+        if self.OOS_start is None and self.OOS_end is None and self.IS_OOS_ratio is None:
             is_index = np.where(Data.dates>=self.IS_start)[0][0]
             split_index = np.where(Data.dates>=self.IS_end)[0][-1]
             for i in get_elements(Data):
                 setattr(IS_Data, i, getattr(Data, i)[is_index:split_index])
-            print('IS start:%s end:%s' %(IS_Data.dates[0], IS_Data.dates[-1]))
+            print('[data][resample] IS start:%s end:%s' %(IS_Data.dates[0], IS_Data.dates[-1]))
             return IS_Data
 
-        elif OOS_start is not None and OOS_end is not None and self.IS_OOS_ratio is None:
+        elif self.OOS_start is not None and self.OOS_end is not None and self.IS_OOS_ratio is None:
             is_index = np.where(Data.dates>=self.IS_start)[0][0]
             split_index = np.where(Data.dates<self.OOS_start)[0][-1]
             oos_index = np.where(Data.dates<self.OOS_end)[0][-1]
             for i in get_elements(Data):
                 setattr(IS_Data, i, getattr(Data, i)[is_index:split_index])
                 setattr(OOS_Data, i, getattr(Data, i)[split_index:oos_index])
-            print('IS start:%s end:%s' %(IS_Data.dates[0], IS_Data.dates[-1]))
-            print('OOS start:%s end:%s' %(OOS_Data.dates[0], OOS_Data.dates[-1]))
+            print('[data][resample] IS start:%s end:%s' %(IS_Data.dates[0], IS_Data.dates[-1]))
+            print('[data][resample] OOS start:%s end:%s' %(OOS_Data.dates[0], OOS_Data.dates[-1]))
             return IS_Data, OOS_Data
 
         elif self.IS_OOS_ratio is not None:
@@ -55,8 +55,8 @@ class Resample():
                 setattr(IS_Data, i, getattr(Data, i)[s_index:e_index][:IS_OOS_idx])
                 setattr(OOS_Data, i, getattr(Data, i)[s_index:e_index][IS_OOS_idx:])    
                               
-            print('IS start:%s end:%s' %(IS_Data.dates[0], IS_Data.dates[-1]))
-            print('OOS start:%s end:%s' %(OOS_Data.dates[0], OOS_Data.dates[-1]))
+            print('[data][resample] IS start:%s end:%s' %(IS_Data.dates[0], IS_Data.dates[-1]))
+            print('[data][resample] OOS start:%s end:%s' %(OOS_Data.dates[0], OOS_Data.dates[-1]))
 
             return IS_Data, OOS_Data
 

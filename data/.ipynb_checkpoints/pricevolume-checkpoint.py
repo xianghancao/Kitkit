@@ -4,7 +4,7 @@ import pandas as pd
 import os
 
 default_names = ["ticker_names", "dates", 'OpenPrice', 'ClosePrice',
-				 'HighestPrice', 'LowestPrice', 'Volume','Amount','VWAP', 'TradeStatus']
+				 'HighestPrice', 'LowestPrice', 'Volume','VWAP', 'TradeStatus', 'Return', 'VolChg']
 
 class PriceVolume():
 	def __init__(self, path, data_names=default_names):
@@ -13,8 +13,8 @@ class PriceVolume():
 
 
 	def build(self):
+		print('[data][pricevolume]' + self.path)
 		for i in self.data_names:
-			print(os.path.join(self.path, i+'.npy'))
 			setattr(self, i, np.load(os.path.join(self.path, i+'.npy')))#.T)
 
 

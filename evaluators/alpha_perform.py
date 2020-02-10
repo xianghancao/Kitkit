@@ -1,6 +1,8 @@
 import numpy as np
 import pandas as pd 
 import matplotlib.pyplot as plt
+import warnings
+warnings.filterwarnings('ignore')
 
 def drawdown(cpnl):
     _cpnl = cpnl * np.ones((cpnl.shape[0], cpnl.shape[0]))
@@ -41,10 +43,10 @@ def equal_wgts(x):
 
 
 class AlphaPerform():
-    def __init__(self, dealObj, cost, cycle, quintiles_num, figure=True):
+    def __init__(self, dealObj, cost, cycle, quintiles_num, figure=True, stat_info=True):
         self.scaled_resample_wgts = dealObj.scaled_resample_wgts
         self.quintiles_num = quintiles_num
-        self.cfg = {'Cycle': cycle, 'Quintiles': quintiles_num, 'Cost': cost}
+        self.cfg = {'Cycle': cycle, 'Quintiles': quintiles_num, 'Cost': cost, 'figure': figure, 'stat_info': stat_info}
         self.resample_return = dealObj.resample_return
         self.resample_dates = dealObj.resample_dates
 
@@ -63,7 +65,7 @@ class AlphaPerform():
         self.stat_alpha_Rsquared()
         self.stat_alpha_time_series_cpnl()
         self.stat_info()
-        if figure: self.plot()
+        if self.cfg['figure']: self.plot()
         
     #----------------------------------------------------------------------
     def sort_quintiles(self, wgts, bottom, up):
@@ -354,9 +356,9 @@ class AlphaPerform():
         self.indicators["Net Alpha Max DrawdownPeriod"] = self.net_alpha_max_drawdown_period
         self.indicators["Alpha Rsquared"] = round(self.alpha_Rsquared, 3)
 
-        print(('start:%s end:%s') %(self.resample_dates[0], self.resample_dates[-1]))
+        print('[AlphaPerform] start:%s end:%s' %(self.resample_dates[0], self.resample_dates[-1]))
         self.stat_df = pd.DataFrame(self.indicators, index=[" "])
-        print(self.stat_df)
+        if self.cfg['stat_info']: print(self.stat_df)
 
 
     def plot(self):

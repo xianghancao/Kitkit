@@ -48,7 +48,7 @@ class TaskQueue():
         #self.config.queue_authkey = 'abc'
         self.config.launch_time = time.strftime('%Y-%m-%d %H:%M:%S')
         self.config.pid = os.getpid()
-        print self.config
+        print('[parallel][TaskQueue] %s' %self.config)
         #print pd.DataFrame(self.config, index=['Queue info']).T
         self.init_queue()
 
@@ -56,7 +56,7 @@ class TaskQueue():
     def init_queue(self):
         self.queue = Queue(maxsize=self.config.queue_size)
         QueueManager.register('get_task_queue', callable=lambda: self.queue)
-        manager = QueueManager(address=('', 5000), authkey='abc')
+        manager = QueueManager(address=('', 5000), authkey=b'abc')
         manager.start()
         self.queue_task = manager.get_task_queue()
 
@@ -65,8 +65,8 @@ class TaskQueue():
         try:
             client = MongoClient(self.config.db_host, self.config.db_port)
             db = client[self.config.db_name]
-        except Exception, e:
-            print e, 'Connect to mongodb error'
+        except Exception as e:
+            print('[parallel][TaskQueue] error: ' + e)
         return db
 
 
@@ -83,7 +83,7 @@ class TaskQueue():
     def fetch_data(self, col, data_num):
         # 提取数据，优先级降序排列
         #return col.find({"IS_backtest": "Undo"}).sort("priority", pymongo.DESCENDING)[0:data_num]
-        print 'fetch_data ...'
+        print('[parallel][TaskQueue] fetch_data ...')
         return col.find({"backtest": "Undo"})[0:data_num]
 
 
@@ -97,20 +97,18 @@ class TaskQueue():
                 q_time = deque([], maxlen=10)
                 db = self.connect_mongodb()
                 for i in self.config.db_collection:
-                    print i
                     dataset = self.fetch_data(db[i], data_num=self.config.queue_size)
-                    if dataset.count() == 0:
-                        print 'No data fetched from db, wait for 1s to reconnect!'
-                        time.sleep(1)
+                    if db[i].count_documents({}) == 0:
+                        print('[parallel][TaskQueue] collection:%s No data fetched from' %i)
                     else:
-                        print 'update_queue...'
+                        print('[parallel][TaskQueue] update_queue...')
                         self.update_queue(dataset)
                         break
                     
             else:
                 q_num.append(self.queue.qsize())
                 q_time.append(time.time())
-                bar_length = 50
+                bar_length = 30
                 percent = 1. * self.queue.qsize() / self.config.queue_size
                 hashes = '#' * int(percent * bar_length)
                 spaces = ' ' * (bar_length - len(hashes))
@@ -128,7 +126,7 @@ class TaskQueue():
 
 
 if __name__ == '__main__':
-    Q = TaskQueue(queue_size=10000, db_host='127.0.0.1', db_port=27017, db_name='AutoResearch', 
+    Q = TaskQueue(queue_size=5000, db_host='127.0.0.1', db_port=27017, db_name='AutoResearch', 
                 db_collection=['layer1', 'layer2', 'layer3', 'layer4', 'layer5', 'layer6', 'layer7'])
     Q.timing_run(queue_threshold=0)
     Q.manager.shutdown()
