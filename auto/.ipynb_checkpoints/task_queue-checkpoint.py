@@ -98,11 +98,13 @@ class TaskQueue():
                 db = self.connect_mongodb()
                 for i in self.config.db_collection:
                     dataset = self.fetch_data(db[i], data_num=self.config.queue_size)
-                    if db[i].count_documents({}) == 0:
+                    if dataset.count() == 0:
                         print('[parallel][TaskQueue] collection:%s No data fetched from' %i)
+                        time.sleep(1)
                     else:
-                        print('[parallel][TaskQueue] update_queue...')
+                        print('[parallel][TaskQueue] collection:%s update_queue...' %i)
                         self.update_queue(dataset)
+                        time.sleep(1)
                         break
                     
             else:

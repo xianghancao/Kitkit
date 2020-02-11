@@ -67,7 +67,7 @@ def Backtester(exprDict):
                       cycle=backtest_conf['cycle'], 
                       quintiles_num=backtest_conf['quintiles'], 
                       figure=False,
-                      stat_info=True)
+                      stat_info=False)
     ap.build()
 
     print('[layer%s] %s calculating ...' %(exprDict['layer'], exprDict['expr']))
@@ -133,7 +133,6 @@ class Worker():
 
     # -----------------------写入mongodb------------------------
     def update_mongodb(self, expr_dict):
-        print(expr_dict)
         print('[Worker] mongodb update layer:%s _id:%s expr:%s create_date:%s' %(expr_dict['layer'], 
                                                                                  expr_dict['_id'], 
                                                                                  expr_dict['expr'],
@@ -145,6 +144,7 @@ class Worker():
 
     # -----------------------执行入口------------------------
     def run(self):
+        print'-----------------------------------------'
         # 连接队列
         self.queue_connect()
         # 连接数据库

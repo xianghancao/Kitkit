@@ -28,7 +28,7 @@ def drawdown_period(x):
         return np.arange(len(cpnl)) - max_cpnl + 1
     res = np.zeros(x.shape)*np.nan
     for i in range(x.shape[1]):
-        res[:i] = func(x[:,i])
+        res[:, i] = func(x[:,i])
     return res
 
 
