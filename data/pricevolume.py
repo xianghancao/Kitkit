@@ -11,10 +11,18 @@ class PriceVolume():
 		self.path = path
 		self.data_names = data_names
 
-
+        
 	def build(self):
-		print('[data][pricevolume]' + self.path)
+		print('[Data][pricevolume]' + self.path)
 		for i in self.data_names:
-			setattr(self, i, np.load(os.path.join(self.path, i+'.npy')))#.T)
+			arr = np.load(os.path.join(self.path, i+'.npy'))
+			if len(arr.shape)>1 and arr.shape[0]<=arr.shape[1]:
+				raise Exception('pls check %s dates number should above stock number!' %i)
+			setattr(self, i, arr)
+
+            
+
+            
+            
 
 

@@ -3,8 +3,7 @@ import numpy as np
 import pandas as pd
 
 class OpenDeal():
-    def __init__(self, data, alpha, maxlookback, 
-                    quintiles=3, cost=0.):
+    def __init__(self, data, alpha, maxlookback):
         self.OpenPrice = data.OpenPrice
         self.ClosePrice = data.ClosePrice
         self.TradeStatus = data.TradeStatus
@@ -12,7 +11,7 @@ class OpenDeal():
         self.dates = data.dates
         self.idx = np.arange(maxlookback, len(data.dates))
         self.alpha = alpha
-
+        print('[Traders][open_deal] maxlookback:%s' %maxlookback)
 
     def build(self):
         self.trade_check()

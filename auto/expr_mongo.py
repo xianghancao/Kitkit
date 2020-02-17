@@ -32,14 +32,24 @@ class ExprDB():
 
 
 
-    def write_mongodb(self, expr, pprint=True):
-        if pprint: 
+    def write_mongodb(self, expr):
+        if expr is None: 
+            print('expr is None')
+            return
+
+        cursor = self.mongodb['layer%s' %expr['layer']].find_one({'expr':expr['expr']})
+        if cursor is None or len(cursor) == 0:
+            self.mongodb['layer%s' %expr['layer']].insert_one(expr)
             print('[ExprDB] mongodb insert layer:%s expr:%s' %(expr['layer'], expr['expr']))
-        self.mongodb['layer%s' %expr['layer']].insert_one(expr)
+        else:
+            print('Existed! Continue')
 
 
 
     def update_mongodb(self, expr):
+        if expr is None:
+            print('expr is None')
+            return
         for iterm in expr.keys():
             print('[ExprDB] mongodb insert layer:%s expr:%s' %(expr['layer'], expr['expr']))
             self.mongodb['layer%s' %expr['layer']].update_one({'_id': expr['_id']}, {"$set": {iterm: expr[iterm]}})

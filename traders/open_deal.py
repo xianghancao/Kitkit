@@ -11,7 +11,7 @@ class OpenDeal():
         self.dates = data.dates
         self.idx = np.arange(maxlookback, len(data.dates))
         self.alpha = alpha
-
+        print('[Traders][open_deal] maxlookback:%s' %maxlookback)
 
     def build(self):
         self.trade_check()

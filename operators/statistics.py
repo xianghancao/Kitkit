@@ -203,9 +203,8 @@ def skewness(x, period):
     """
     res = np.zeros_like(x) * np.nan
     for i in range(x.shape[1]):
-        #idx = np.isnan(x[:,i])
-        #res[:,i][~idx] = pd.DataFrame(x[~idx][:,i]).T.rolling(period).skew().values
-        res[:,i] = pd.DataFrame(x[:,i]).T.rolling(period).skew().values
+        idx = np.isnan(x[:,i])
+        res[:,i][~idx] = pd.DataFrame(x[:,i][~idx]).rolling(period).skew().iloc[:,0].values
     return res
 
 
@@ -222,9 +221,8 @@ def kurtosis(x, period):
     """
     res = np.zeros_like(x) * np.nan
     for i in range(x.shape[1]):
-        #idx = np.isnan(x[:,i])
-        #res[:,i][~idx] = pd.DataFrame(x[~idx][:,i]).T.rolling(period).kurt().values
-        res[:,i] = pd.DataFrame(x[:,i]).T.rolling(period).kurt().values
+        idx = np.isnan(x[:,i])
+        res[:,i][~idx] = pd.DataFrame(x[:,i][~idx]).rolling(period).kurt().iloc[:,0].values
     return res
 
 
@@ -241,9 +239,8 @@ def k_moment(x, period, pow=2):
 
     res = np.zeros_like(x) * np.nan
     for i in range(x.shape[1]):
-        #idx = np.isnan(x[:,i])
-        #res[:,i][~idx] = pd.DataFrame(x[~idx][:,i]).rolling(period).apply(moment).values
-        res[:,i] = pd.DataFrame(x[:,i]).T.rolling(period).apply(moment).values
+        idx = np.isnan(x[:,i])
+        res[:,i][~idx] = pd.DataFrame(x[:,i][~idx]).rolling(period).apply(moment).iloc[:,0].values
     return np.array(res)
 
 

@@ -31,6 +31,13 @@ class ExprGenerator():
         self._init_element()
         self._init_operators_expr()
         self._init_engine()
+        self._init_operators_blacklist()
+
+    # --------------------------------------------------------------------
+    def _init_operators_blacklist(self):
+        yaml_path = os.path.join(os.path.dirname(__file__),'operators_blacklist.yaml')
+        with open(yaml_path, 'r') as ff:
+            self.operators_blacklist = yaml.load(ff) 
 
 
     # --------------------------------------------------------------------
@@ -134,9 +141,17 @@ class ExprGenerator():
                 layer_num -= 1
                 return getattr(operators_expr, op)(*args_list)
 
-
+    
+    def _expr_blacklist_check(self, expr_str):
+        for i in self.operators_blacklist['blacklist']:
+            if i in expr_str:
+                print('[ExprGenerator] Blacklist rules blocked this expr_str: %s' %(expr_str))
+                return None
+        return expr_str
+    
     def get_one_expr(self, layer_num):
         expr_str = self._get_one_expr_str(layer_num)
+        if self._expr_blacklist_check(expr_str) is None: return None
         expr = {
             "expr": expr_str,
             "layer": layer_num,

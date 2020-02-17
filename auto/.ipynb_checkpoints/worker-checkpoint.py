@@ -50,7 +50,6 @@ def Backtester(exprDict):
     Return = IS_Data.Return
     VolChg = IS_Data.VolChg
 
-    
     alpha = eval(exprDict['expr'])
     exprDict['cal_error'] = None
 
@@ -69,8 +68,7 @@ def Backtester(exprDict):
                       figure=False,
                       stat_info=False)
     ap.build()
-
-    print('[layer%s] %s calculating ...' %(exprDict['layer'], exprDict['expr']))
+    
     exprDict.update(ap.indicators)
     exprDict['backtest'] = 'Done'
     return exprDict
@@ -137,6 +135,7 @@ class Worker():
                                                                                  expr_dict['_id'], 
                                                                                  expr_dict['expr'],
                                                                                  expr_dict['create_date']))
+        expr_dict['update_date'] = str(datetime.now())[:19]
         for iterm in expr_dict.keys():
             self.mongodb['layer%s' %expr_dict['layer']].update_one({'_id': expr_dict['_id']}, {"$set": {iterm: expr_dict[iterm]}})
 
@@ -144,7 +143,7 @@ class Worker():
 
     # -----------------------执行入口------------------------
     def run(self):
-        print'-----------------------------------------'
+        print('-'*80)
         # 连接队列
         self.queue_connect()
         # 连接数据库
