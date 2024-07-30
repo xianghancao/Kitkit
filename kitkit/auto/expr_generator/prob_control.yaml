@@ -1,0 +1,684 @@
+# this yaml template using to specify probabilityabiliy of param in used operators
+# 'e' means 'equal probabilityability'
+
+elements:
+    OpenPrice:
+        probability: 'e'
+    HighestPrice:
+        probability: 'e'
+    LowestPrice:
+        probability: 'e'
+    ClosePrice:
+        probability: 'e'
+    Volume:
+        probability: 'e'
+    Return:
+        probability: 'e'
+    VolChg:
+        probability: 'e'
+    VWAP:
+        probability: 'e'
+        
+
+operators:
+    # simple -----------------------------
+    add:
+        probability: 'e'
+
+    sub:
+        probability: 'e'
+
+    mul:
+        probability: 'e'
+
+    div:
+        probability: 'e'
+
+    # element -----------------------------
+    abs:
+        probability: 'e'
+
+    negative:
+        probability: 'e'
+
+    sqrt:
+        probability: 'e'
+
+    square:
+        probability: 'e'
+
+    exp:
+        probability: 'e'
+
+    log:
+        probability: 'e'
+
+
+    signedpower:
+        probability: 'e'
+        pow: 
+            2: 0.5
+            3: 0.5
+
+    sigmoid:
+        probability: 'e'
+
+    nike:
+        probability: 'e'
+
+    # logic -----------------------------
+#     iff:
+#         probability: 'e'
+
+#     or_expr:
+#         probability: 'e'
+
+    max:
+        probability: 'e'
+
+    min:
+        probability: 'e'
+
+    # number_theory -----------------------------
+    ceil:
+        probability: 'e'
+
+    floor:
+        probability: 'e'
+
+    reciprocal:
+        probability: 'e'
+
+    # signal_process -----------------------------
+    drawdown:
+        probability: 'e'
+        
+    drawdown_period:
+        probability: 'e'
+        
+    scale_one:
+        probability: 'e'
+       
+    equal_wgts:
+        probability: 'e'
+       
+    # statistics -----------------------------
+    ts_sum:
+        probability: 'e'
+        period:
+            5: .1
+            10: .1
+            15: .1
+            20: .1
+            40: .1
+            60: .1
+            80: .1
+            100: .1
+            150: .1
+            200: .1
+
+    ts_product:
+        probability: 'e'
+        period:
+            5: .1
+            10: .1
+            15: .1
+            20: .1
+            40: .1
+            60: .1
+            80: .1
+            100: .1
+            150: .1
+            200: .1
+
+    ts_min:
+        probability: 'e'
+        period:
+            5: .1
+            10: .1
+            15: .1
+            20: .1
+            40: .1
+            60: .1
+            80: .1
+            100: .1
+            150: .1
+            200: .1
+
+    ts_max:
+        probability: 'e'
+        period:
+            5: .1
+            10: .1
+            15: .1
+            20: .1
+            40: .1
+            60: .1
+            80: .1
+            100: .1
+            150: .1
+            200: .1
+
+    ts_argmax:
+        probability: 'e'
+        period:
+            5: .1
+            10: .1
+            15: .1
+            20: .1
+            40: .1
+            60: .1
+            80: .1
+            100: .1
+            150: .1
+            200: .1
+
+    ts_argmin:
+        probability: 'e'
+        period:
+            5: .1
+            10: .1
+            15: .1
+            20: .1
+            40: .1
+            60: .1
+            80: .1
+            100: .1
+            150: .1
+            200: .1
+
+    rank:
+        probability: 'e'
+
+    ts_rank:
+        probability: 'e'
+        period:
+            5: .1
+            10: .1
+            15: .1
+            20: .1
+            40: .1
+            60: .1
+            80: .1
+            100: .1
+            150: .1
+            200: .1
+
+    ma:
+        probability: 'e'
+        period:
+            5: .1
+            10: .1
+            15: .1
+            20: .1
+            40: .1
+            60: .1
+            80: .1
+            100: .1
+            150: .1
+            200: .1
+    skewness:
+        probability: 'e'
+        period:
+            5: .1
+            10: .1
+            15: .1
+            20: .1
+            40: .1
+            60: .1
+            80: .1
+            100: .1
+            150: .1
+            200: .1
+
+    kurtosis:
+        probability: 'e'
+        period:
+            5: .1
+            10: .1
+            15: .1
+            20: .1
+            40: .1
+            60: .1
+            80: .1
+            100: .1
+            150: .1
+            200: .1
+
+#     k_moment:
+#         probability: 'e'
+#         period:
+#             5: .1
+#             10: .1
+#             15: .1
+#             20: .1
+#             40: .1
+#             60: .1
+#             80: .1
+#             100: .1
+#             150: .1
+#             200: .1
+#         pow:
+#             2: 0.5
+#             3: 0.5
+
+    geometric_mean:
+        probability: 'e'
+
+    beta:
+        probability: 'e'
+        period:
+            5: .1
+            10: .1
+            15: .1
+            20: .1
+            40: .1
+            60: .1
+            80: .1
+            100: .1
+            150: .1
+            200: .1
+
+    linearreg:
+        probability: 'e'
+        period:
+            5: .1
+            10: .1
+            15: .1
+            20: .1
+            40: .1
+            60: .1
+            80: .1
+            100: .1
+            150: .1
+            200: .1
+
+    linearreg_angle:
+        probability: 'e'
+        period:
+            5: .1
+            10: .1
+            15: .1
+            20: .1
+            40: .1
+            60: .1
+            80: .1
+            100: .1
+            150: .1
+            200: .1
+
+    linearreg_intercept:
+        probability: 'e'
+        period:
+            5: .1
+            10: .1
+            15: .1
+            20: .1
+            40: .1
+            60: .1
+            80: .1
+            100: .1
+            150: .1
+            200: .1
+    linearreg_slope:
+        probability: 'e'
+        period:
+            5: .1
+            10: .1
+            15: .1
+            20: .1
+            40: .1
+            60: .1
+            80: .1
+            100: .1
+            150: .1
+            200: .1
+    tsf:
+        probability: 'e'
+        period:
+            5: .1
+            10: .1
+            15: .1
+            20: .1
+            40: .1
+            60: .1
+            80: .1
+            100: .1
+            150: .1
+            200: .1
+    stddev:
+        probability: 'e'
+        period:
+            5: .1
+            10: .1
+            15: .1
+            20: .1
+            40: .1
+            60: .1
+            80: .1
+            100: .1
+            150: .1
+            200: .1
+    var:
+        probability: 'e'
+        period:
+            5: .1
+            10: .1
+            15: .1
+            20: .1
+            40: .1
+            60: .1
+            80: .1
+            100: .1
+            150: .1
+            200: .1
+    scale:
+        probability: 'e'
+        period:
+            5: .1
+            10: .1
+            15: .1
+            20: .1
+            40: .1
+            60: .1
+            80: .1
+            100: .1
+            150: .1
+            200: .1
+    correlation:
+        probability: 'e'
+        period:
+            5: .1
+            10: .1
+            15: .1
+            20: .1
+            40: .1
+            60: .1
+            80: .1
+            100: .1
+            150: .1
+            200: .1
+    covariance:
+        probability: 'e'
+        period:
+            5: .1
+            10: .1
+            15: .1
+            20: .1
+            40: .1
+            60: .1
+            80: .1
+            100: .1
+            150: .1
+            200: .1
+    count_nans:
+        probability: 'e'
+        period:
+            5: .1
+            10: .1
+            15: .1
+            20: .1
+            40: .1
+            60: .1
+            80: .1
+            100: .1
+            150: .1
+            200: .1
+
+    ts_count:
+        probability: 'e'
+        period:
+            5: .1
+            10: .1
+            15: .1
+            20: .1
+            40: .1
+            60: .1
+            80: .1
+            100: .1
+            150: .1
+            200: .1
+    # technical ----------------------------------------
+    delay:
+        probability: 'e'
+        period:
+            1: .05
+            2: .05
+            3: .05
+            4: .05
+            5: .05 
+            6: .05
+            7: .05
+            8: .05
+            10: .05 
+            15: .05 
+            20: .05 
+            30: .05
+            40: .05 
+            50: .05 
+            60: .05 
+            80: .05 
+            100: .05 
+            120: .05
+            150: .05 
+            200: .05 
+
+    delta:
+        probability: 'e'
+        period:
+            5: .1
+            10: .1
+            15: .1
+            20: .1
+            40: .1
+            60: .1
+            80: .1
+            100: .1
+            150: .1
+            200: .1
+
+    delta2:
+        probability: 'e'
+        period1:
+            5: .1
+            10: .1
+            15: .1
+            20: .1
+            40: .1
+            60: .1
+            80: .1
+            100: .1
+            150: .1
+            200: .1
+        period2:
+            5: .1
+            10: .1
+            15: .1
+            20: .1
+            40: .1
+            60: .1
+            80: .1
+            100: .1
+            150: .1
+            200: .1
+
+    llv:
+        probability: 'e'
+        period:
+            5: .1
+            10: .1
+            15: .1
+            20: .1
+            40: .1
+            60: .1
+            80: .1
+            100: .1
+            150: .1
+            200: .1
+
+    hhv:
+        probability: 'e'
+        period:
+            5: .1
+            10: .1
+            15: .1
+            20: .1
+            40: .1
+            60: .1
+            80: .1
+            100: .1
+            150: .1
+            200: .1
+
+    kama:
+        probability: 'e'
+        period:
+            5: .1
+            10: .1
+            15: .1
+            20: .1
+            40: .1
+            60: .1
+            80: .1
+            100: .1
+            150: .1
+            200: .1
+
+    midpoint:
+        probability: 'e'
+        period:
+            5: .1
+            10: .1
+            15: .1
+            20: .1
+            40: .1
+            60: .1
+            80: .1
+            100: .1
+            150: .1
+            200: .1
+
+    ema:
+        probability: 'e'
+        period:
+            5: .1
+            10: .1
+            15: .1
+            20: .1
+            40: .1
+            60: .1
+            80: .1
+            100: .1
+            150: .1
+            200: .1
+    wma:
+        probability: 'e'
+        period:
+            5: .1
+            10: .1
+            15: .1
+            20: .1
+            40: .1
+            60: .1
+            80: .1
+            100: .1
+            150: .1
+            200: .1
+
+    tema:
+        probability: 'e'
+        period:
+            5: .1
+            10: .1
+            15: .1
+            20: .1
+            40: .1
+            60: .1
+            80: .1
+            100: .1
+            150: .1
+            200: .1
+
+    bias:
+        probability: 'e'
+        period:
+            5: .1
+            10: .1
+            15: .1
+            20: .1
+            40: .1
+            60: .1
+            80: .1
+            100: .1
+            150: .1
+            200: .1
+
+    oscp:
+        probability: 'e'
+        period1:
+            5: .1
+            10: .1
+            15: .1
+            20: .1
+            40: .1
+            60: .1
+            80: .1
+            100: .1
+            150: .1
+            200: .1
+        period2:
+            5: .1
+            10: .1
+            15: .1
+            20: .1
+            40: .1
+            60: .1
+            80: .1
+            100: .1
+            150: .1
+            200: .1
+
+    # trigonometric --------------------------------
+    sin:
+        probability: 'e'
+
+    cos:
+        probability: 'e'
+
+    tan:
+        probability: 'e'
+
+    arcsin:
+        probability: 'e'
+
+    arccos:
+        probability: 'e'
+
+    arctan:
+        probability: 'e'
+
+    sinh:
+        probability: 'e'
+
+    cosh:
+        probability: 'e'
+
+    tanh:
+        probability: 'e'
+
+    arcsinh:
+        probability: 'e'
+
+    arccosh:
+        probability: 'e'
+
+    arctanh:
+        probability: 'e'
+
+
+
+
+
+
+
+    

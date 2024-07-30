@@ -1,6 +1,0 @@
-blacklist:
-    - k_moment
-    - arccos
-    - arctan
-    - arcsin
-
