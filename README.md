@@ -1,7 +1,6 @@
-```python
-%load_ext autoreload
-%autoreload 2
-```
+# Kitkit
+
+Here are 5 steps for beginners!
 
 ## step1 data 
 
@@ -306,72 +305,3 @@ ap.build()
     
 
 
-
-```python
-a = {'2':1}
-```
-
-
-```python
-a.get('1', 3)
-```
-
-
-
-
-    3
-
-
-
-
-```python
-import tushare as ts
-ts.set_token('95a929d8f6e5e25cc92f81cdab9c6e809b5507664c01bf6b5e3c3645')
-pro = ts.pro_api()
-
-df = pro.cctv_news(date='20200305')
-```
-
-
-```python
-df
-
-```
-
-
-
-
-<div>
-<style scoped>
-    .dataframe tbody tr th:only-of-type {
-        vertical-align: middle;
-    }
-
-    .dataframe tbody tr th {
-        vertical-align: top;
-    }
-
-    .dataframe thead th {
-        text-align: right;
-    }
-</style>
-<table border="1" class="dataframe">
-  <thead>
-    <tr style="text-align: right;">
-      <th></th>
-      <th>date</th>
-      <th>title</th>
-      <th>content</th>
-    </tr>
-  </thead>
-  <tbody>
-  </tbody>
-</table>
-</div>
-
-
-
-
-```python
-
-```
